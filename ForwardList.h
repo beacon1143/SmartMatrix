@@ -21,8 +21,8 @@ namespace SMART_MATRIX {
     size_t size_;
   public:
     size_t GetSize();
-    void PushBack(T inp);
-    T Pop(size_t idx);
+    int PushBack(T inp);
+    int Pop(size_t idx);
     void Print();
 
     ForwardList();
