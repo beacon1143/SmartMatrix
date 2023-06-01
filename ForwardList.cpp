@@ -77,7 +77,6 @@ namespace SMART_MATRIX {
       throw std::runtime_error("Error! In ForwardList::Pop!");
     }
     ForwardNode<T>* toDelete = tmp->next;
-    retValue = toDelete->data;
     tmp->next = tmp->next->next;
     delete toDelete;
     size_--;
