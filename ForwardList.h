@@ -23,7 +23,7 @@ namespace SMART_MATRIX {
     size_t GetSize();
     int PushBack(T inp);
     int Pop(size_t idx);
-    void Print();
+    void Print() const;
 
     ForwardList();
     ~ForwardList();

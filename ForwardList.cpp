@@ -8,7 +8,7 @@ namespace SMART_MATRIX {
   }
 
   template <typename T>
-  int ForwardList<T>::PushBack(T inp) {
+  int ForwardList<T>::PushBack(const T inp) {
     try {
       ForwardNode<T>* tmp = new ForwardNode<T>;
       tmp->data = inp;
@@ -35,24 +35,7 @@ namespace SMART_MATRIX {
   }
 
   template <typename T>
-  void ForwardList<T>::Print() {
-    if (size_ == 0) {
-      std::cout << "No elements in the list!\n";
-      return;
-    }
-    ForwardNode<T>* tmp = first_;
-    if (tmp == nullptr) {
-      throw std::runtime_error("Error! In ForwardList::Print!");
-    }
-    while (tmp->next != nullptr) {
-      std::cout << tmp->data << " ";
-      tmp = tmp->next;
-    }
-    std::cout << tmp->data << "\n";
-  }
-
-  template <typename T>
-  int ForwardList<T>::Pop(size_t idx) {
+  int ForwardList<T>::Pop(const size_t idx) {
     if (idx >= size_) {
       std::cout << "The list doesn't contain an element with that index!\n";
       return 1;
@@ -81,6 +64,23 @@ namespace SMART_MATRIX {
     delete toDelete;
     size_--;
     return 0;
+  }
+
+  template <typename T>
+  void ForwardList<T>::Print() const {
+    if (size_ == 0) {
+      std::cout << "No elements in the list!\n";
+      return;
+    }
+    ForwardNode<T>* tmp = first_;
+    if (tmp == nullptr) {
+      throw std::runtime_error("Error! In ForwardList::Print!");
+    }
+    while (tmp->next != nullptr) {
+      std::cout << tmp->data << " ";
+      tmp = tmp->next;
+    }
+    std::cout << tmp->data << "\n";
   }
 
 
