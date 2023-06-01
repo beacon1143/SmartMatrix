@@ -58,16 +58,23 @@ namespace SMART_MATRIX {
       return 1;
     }
     ForwardNode<T>* tmp = first_;
-    T retValue;
-    if (idx == 0) {
-      retValue = first_->data;
+    if (tmp == nullptr) {
+      throw std::runtime_error("Error! In ForwardList::Pop!");
+    }
+    if (idx == 0) {    // removing the first node of the list
       tmp = first_->next;
       delete first_;
       first_ = tmp;
-      return retValue;
+      return 0;
     }
     for (size_t i = 0; i < idx - 1; i++) {
+      if (tmp->next == nullptr) {
+        throw std::runtime_error("Error! In ForwardList::Pop!");
+      }
       tmp = tmp->next;
+    }
+    if (tmp == nullptr) {
+      throw std::runtime_error("Error! In ForwardList::Pop!");
     }
     ForwardNode<T>* toDelete = tmp->next;
     retValue = toDelete->data;
