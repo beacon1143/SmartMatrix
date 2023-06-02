@@ -45,10 +45,11 @@ namespace SMART_MATRIX {
   }
 
   template <typename T>
-  void SmartMatrix<T>::Print() const {
-    for (auto list_ptr : arr_) {
-      list_ptr->Print();
+  std::ostream& operator<<(std::ostream& out, const SmartMatrix<T>& sm) {
+    for (auto list_ptr : sm.arr_) {
+      out << *list_ptr;
     }
+    return out;
   }
 
 

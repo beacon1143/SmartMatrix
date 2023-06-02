@@ -3,7 +3,7 @@
 namespace SMART_MATRIX {
 
   template <typename T>
-  size_t ForwardList<T>::GetSize() {
+  size_t ForwardList<T>::GetSize() const {
     return size_;
   }
 
@@ -68,20 +68,21 @@ namespace SMART_MATRIX {
   }
 
   template <typename T>
-  void ForwardList<T>::Print() const {
-    if (size_ == 0) {
-      std::cout << "No elements in the list!\n";
-      return;
+  std::ostream& operator<<(std::ostream& out, const ForwardList<T>& fl) {
+    if (fl.size_ == 0) {
+      out << "No elements in the list!\n";
+      return out;
     }
-    ForwardNode<T>* tmp = first_;
+    auto tmp = fl.first_;
     if (tmp == nullptr) {
-      throw std::runtime_error("Error! In ForwardList::Print!");
+      throw std::runtime_error("Error! In ForwardList::operator!");
     }
     while (tmp->next != nullptr) {
-      std::cout << tmp->data << " ";
+      out << tmp->data << " ";
       tmp = tmp->next;
     }
-    std::cout << tmp->data << "\n";
+    out << tmp->data << "\n";
+    return out;
   }
 
 

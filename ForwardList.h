@@ -20,10 +20,11 @@ namespace SMART_MATRIX {
     ForwardNode<T>* last_;
     size_t size_;
   public:
-    size_t GetSize();
+    size_t GetSize() const;
     int PushBack(T inp);
     int Pop(size_t idx);
-    void Print() const;
+    template <typename T1>
+    friend std::ostream& operator<<(std::ostream& out, const ForwardList<T1>& fl);
 
     ForwardList();
     ~ForwardList();

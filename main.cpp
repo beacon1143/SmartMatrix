@@ -18,11 +18,11 @@ int main() {
     sm.PushBackToRow(3, 7);
     sm.PushBackToRow(4, 8);
     sm.PushBackToRow(4, 9);
-    //sm.Print();
+    //std::cout << sm;
     sm.DeleteRow(2);
-    //sm.Print();
+    //std::cout << sm;
     sm.DeleteColumn(0);
-    sm.Print();
+    std::cout << sm;
     return 0;
   }
   catch (const std::exception& e) {
