@@ -37,7 +37,7 @@ namespace SMART_MATRIX {
   template <typename T>
   int ForwardList<T>::Pop(const size_t idx) {
     if (idx >= size_) {
-      std::cout << "The list doesn't contain an element with that index!\n";
+      //std::cout << "The list doesn't contain an element with that index!\n";
       return 1;
     }
     ForwardNode<T>* tmp = first_;
@@ -48,6 +48,7 @@ namespace SMART_MATRIX {
       tmp = first_->next;
       delete first_;
       first_ = tmp;
+      size_--;
       return 0;
     }
     for (size_t i = 0; i < idx - 1; i++) {
@@ -95,6 +96,9 @@ namespace SMART_MATRIX {
   ForwardList<T>::~ForwardList() {
     //std::cout << "In the destructor...\n";
     ForwardNode<T>* tmp = nullptr;
+    if (first_ == nullptr) {
+      return;
+    }
     while (first_->next != nullptr) {
       //std::cout << "In the loop...\n";
       tmp = first_->next;
