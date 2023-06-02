@@ -1,19 +1,28 @@
 #include <iostream>
 #include "ForwardList.h"
 #include "ForwardList.cpp"
+#include "SmartMatrix.h"
+#include "SmartMatrix.cpp"
 
 using namespace SMART_MATRIX;
 
 int main() {
   try {
-    ForwardList<int> fl;
-    fl.PushBack(1);
-    fl.PushBack(2);
-    fl.PushBack(3);
-    fl.PushBack(4);
-    fl.Pop(2);
-    fl.Pop(1);
-    fl.Print();
+    SmartMatrix<int> sm(5);
+    sm.PushBackToRow(0, 1);
+    sm.PushBackToRow(0, 2);
+    sm.PushBackToRow(0, 3);
+    sm.PushBackToRow(1, 4);
+    sm.PushBackToRow(2, 5);
+    sm.PushBackToRow(2, 6);
+    sm.PushBackToRow(3, 7);
+    sm.PushBackToRow(4, 8);
+    sm.PushBackToRow(4, 9);
+    //sm.Print();
+    sm.DeleteRow(2);
+    //sm.Print();
+    sm.DeleteColumn(0);
+    sm.Print();
     return 0;
   }
   catch (const std::exception& e) {
