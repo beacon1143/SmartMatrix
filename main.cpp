@@ -10,6 +10,7 @@ using namespace SMART_MATRIX;
 
 int main() {
   try {
+    using EL_TYPE = int;
     std::ifstream inp("data.dat");
     if (!inp.is_open()) {
       std::cerr << "Error! Cannot open file data.txt!\n";
@@ -29,15 +30,15 @@ int main() {
       std::cerr << "Error! Wrong rows amount in file data.txt!\n";
       return 3;
     }
-    SmartMatrix<int> sm(nRows);
+    SmartMatrix<EL_TYPE> sm(nRows);
 
-    int tmpInt;
+    EL_TYPE tmpElem;
     for (size_t i = 0; i < nRows; i++) {
       std::getline(inp, tmpString);
       std::stringstream strStream;
       strStream << tmpString;
-      while (strStream >> tmpInt) {
-        sm.PushBackToRow(i, tmpInt);
+      while (strStream >> tmpElem) {
+        sm.PushBackToRow(i, tmpElem);
       }
     }
     inp.close();
