@@ -10,19 +10,16 @@ namespace SMART_MATRIX {
   template <typename T>
   int ForwardList<T>::PushBack(const T inp) {
     try {
-      ForwardNode<T>* tmp = new ForwardNode<T>;
-      tmp->data = inp;
-      tmp->next = nullptr;
       if (size_ == 0) {
-        first_ = tmp;
-        last_ = tmp;
+        first_ = std::make_unique<ForwardNode<T>>(inp);
+        last_ = first_.get();
       }
       else {
         if (last_ == nullptr) {
           throw std::runtime_error("Error! In ForwardList::PushBack!");
         }
-        last_->next = tmp;
-        last_ = last_->next;
+        last_->next = std::make_unique<ForwardNode<T>>(inp);
+        last_ = last_->next.get();
       }
       //std::cout << "first = " << first_->data << ", last = " << last_->data << "\n";
       size_++;
@@ -40,29 +37,27 @@ namespace SMART_MATRIX {
       //std::cout << "The list doesn't contain an element with that index!\n";
       return 1;
     }
-    ForwardNode<T>* tmp = first_;
-    if (tmp == nullptr) {
-      throw std::runtime_error("Error! In ForwardList::Pop!");
-    }
     if (idx == 0) {    // removing the first node of the list
-      tmp = first_->next;
-      delete first_;
-      first_ = tmp;
+      auto tmp = std::move(first_);
+      first_ = std::move(tmp->next);
       size_--;
       return 0;
+    }
+    auto tmp = first_.get();
+    if (tmp == nullptr) {
+      throw std::runtime_error("Error! In ForwardList::Pop!");
     }
     for (size_t i = 0; i < idx - 1; i++) {
       if (tmp->next == nullptr) {
         throw std::runtime_error("Error! In ForwardList::Pop!");
       }
-      tmp = tmp->next;
+      tmp = tmp->next.get();
     }
     if (tmp == nullptr) {
       throw std::runtime_error("Error! In ForwardList::Pop!");
     }
-    ForwardNode<T>* toDelete = tmp->next;
-    tmp->next = tmp->next->next;
-    delete toDelete;
+    auto toDelete = std::move(tmp->next);
+    tmp->next = std::move(toDelete->next);
     size_--;
     return 0;
   }
@@ -73,13 +68,13 @@ namespace SMART_MATRIX {
       out << "No elements in the list!\n";
       return out;
     }
-    auto tmp = fl.first_;
+    auto tmp = fl.first_.get();
     if (tmp == nullptr) {
       throw std::runtime_error("Error! In ForwardList::operator!");
     }
     while (tmp->next != nullptr) {
       out << tmp->data << " ";
-      tmp = tmp->next;
+      tmp = tmp->next.get();
     }
     out << tmp->data << "\n";
     return out;
@@ -96,19 +91,13 @@ namespace SMART_MATRIX {
   template <typename T>
   ForwardList<T>::~ForwardList() {
     //std::cout << "In the destructor...\n";
-    ForwardNode<T>* tmp = nullptr;
     if (first_ == nullptr) {
       return;
     }
-    while (first_->next != nullptr) {
+    while (first_ != nullptr) {
       //std::cout << "In the loop...\n";
-      tmp = first_->next;
-      //std::cout << "tmp = " << tmp->data << "\n";
-      delete first_;
-      first_ = tmp;
+      first_ = std::move(first_->next);
     }
-    delete first_;
-    first_ = nullptr;
     last_ = nullptr;
   }
 

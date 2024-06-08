@@ -5,6 +5,7 @@
 #include <string>
 #include <stddef.h>
 #include <stdexcept>
+#include <memory>
 
 namespace SMART_MATRIX {
 
@@ -13,10 +14,12 @@ namespace SMART_MATRIX {
   private:
     template <typename T1>
     struct ForwardNode {
-      T1 data;
-      ForwardNode* next;
+      const T1 data;
+      std::unique_ptr<ForwardNode<T1>> next;
+      template <typename T2>
+      explicit ForwardNode(T2 _data) : data{_data}, next{nullptr} {}
     };
-    ForwardNode<T>* first_;
+    std::unique_ptr<ForwardNode<T>> first_;
     ForwardNode<T>* last_;
     size_t size_;
   public:
