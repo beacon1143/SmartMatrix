@@ -13,14 +13,14 @@ namespace SMART_MATRIX {
   class ForwardList {
   private:
     template <typename T1>
-    struct ForwardNode {
+    struct Node {
       const T1 data;
-      std::unique_ptr<ForwardNode<T1>> next;
+      std::unique_ptr<Node<T1>> next;
       template <typename T2>
-      explicit ForwardNode(T2 _data) : data{_data}, next{nullptr} {}
+      explicit Node(T2 _data) : data{_data}, next{nullptr} {}
     };
-    std::unique_ptr<ForwardNode<T>> first_;
-    ForwardNode<T>* last_;
+    std::unique_ptr<Node<T>> first_;
+    Node<T>* last_;
     size_t size_;
   public:
     size_t GetSize() const;

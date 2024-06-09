@@ -11,14 +11,14 @@ namespace SMART_MATRIX {
   int ForwardList<T>::PushBack(const T inp) {
     try {
       if (size_ == 0) {
-        first_ = std::make_unique<ForwardNode<T>>(inp);
+        first_ = std::make_unique<Node<T>>(inp);
         last_ = first_.get();
       }
       else {
         if (last_ == nullptr) {
           throw std::runtime_error("Error! In ForwardList::PushBack!");
         }
-        last_->next = std::make_unique<ForwardNode<T>>(inp);
+        last_->next = std::make_unique<Node<T>>(inp);
         last_ = last_->next.get();
       }
       //std::cout << "first = " << first_->data << ", last = " << last_->data << "\n";
